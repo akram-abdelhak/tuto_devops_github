@@ -24,14 +24,14 @@ jobs:
       - name: Run Tests
         run: make tests
 
-  doc:
-    name: PublishDoc
+  doc:  
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: make doc
-      - name: Publish Doc
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          build_dir: ./dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
