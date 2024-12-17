@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check script
-        run: test -e runs.sh
+        run: test -e run.sh
   shellcheck:
     name: Shellcheck
     runs-on: ubuntu-latest
