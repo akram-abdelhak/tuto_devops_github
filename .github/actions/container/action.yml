@@ -1,1 +1,38 @@
-
+name: 'container'
+description: 'do container stuff'
+inputs:
+  username:  # id of input
+    description: 'the username'
+    required: true
+    default: 'pizzacrust'
+  password:
+    description: 'the password'
+    required: true
+  registry:
+    description: 'the registry'
+    required: true
+    default: 'https://ghcr.io'
+  tags:
+    description: 'the tags'
+    required: true
+runs:
+  using: "composite"
+  steps:
+      - uses: actions/checkout@v2
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: $INPUT_REGISTRY
+          username: $INPUT_USERNAME
+          password: $INPUT_PASSWORD
+        env:
+          INPUT_USERNAME: ${{ inputs.username }}
+          INPUT_PASSWORD: ${{ inputs.password }}
+          INPUT_REGISTRY: ${{ inputs.registry }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: $INPUT_TAGS
+        env:
+          INPUT_TAGS: ${{ inputs.tags }}
