@@ -1,8 +1,5 @@
 name: On push
-on:
-  push:
-    branches-ignore:
-      - main
+on: push
 jobs:
   testscript:
     runs-on: ubuntu-latest
